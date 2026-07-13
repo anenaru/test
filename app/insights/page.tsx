@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Mail, Phone, Globe } from 'lucide-react'
 import { SiteSidebar } from '@/components/site-sidebar'
+import { getAllInsightPosts, urlFor } from '@/lib/sanity'
 import { insightPosts } from '@/lib/insights'
 
 export const metadata: Metadata = {
@@ -11,7 +12,51 @@ export const metadata: Metadata = {
     'Empowering tools, community highlights, and resources for individuals navigating career growth, independent living, and wellness.',
 }
 
-export default function InsightsPage() {
+// Revalidate every 60 seconds (ISR) so new Sanity posts appear without a full redeploy
+export const revalidate = 60
+
+export default async function InsightsPage() {
+  // Try Sanity first; fall back to static data if env vars aren't configured yet
+  let posts: Array<{
+    slug: string
+    title: string
+    author: string
+    date: string
+    imageUrl: string
+    excerpt: string
+  }> = []
+
+  try {
+    const sanityPosts = await getAllInsightPosts()
+    if (sanityPosts && sanityPosts.length > 0) {
+      posts = sanityPosts.map((p) => ({
+        slug: p.slug.current,
+        title: p.title,
+        author: p.author,
+        date: new Date(p.date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        }),
+        imageUrl: p.image ? urlFor(p.image).width(640).height(427).url() : '',
+        excerpt: p.excerpt,
+      }))
+    }
+  } catch {
+    // Sanity not configured yet — use static fallback
+  }
+
+  if (posts.length === 0) {
+    posts = insightPosts.map((p) => ({
+      slug: p.slug,
+      title: p.title,
+      author: p.author,
+      date: p.date,
+      imageUrl: p.image,
+      excerpt: p.excerpt,
+    }))
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <SiteSidebar />
@@ -29,7 +74,7 @@ export default function InsightsPage() {
           </div>
 
           <div className="mx-auto mt-14 flex max-w-5xl flex-col gap-14 md:mt-20 md:gap-20">
-            {insightPosts.map((post) => (
+            {posts.map((post) => (
               <article
                 key={post.slug}
                 className="grid items-center gap-6 md:grid-cols-2 md:gap-10"
@@ -39,7 +84,7 @@ export default function InsightsPage() {
                   className="block overflow-hidden rounded-xl"
                 >
                   <Image
-                    src={post.image || '/placeholder.svg'}
+                    src={post.imageUrl || '/placeholder.svg'}
                     alt={post.title}
                     width={640}
                     height={420}
@@ -81,11 +126,11 @@ export default function InsightsPage() {
               cjhealingart1999@gmail.com
             </a>
             <a
-              href="tel:+17542342324"
+              href="tel:+17543683864"
               className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               <Phone className="h-5 w-5" />
-              (754) 234-2324
+              (754) 368-3864
             </a>
             <a
               href="https://cjhealingarts.org"
