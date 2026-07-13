@@ -67,14 +67,17 @@ export function SiteSidebar() {
 
       {/* Desktop fixed sidebar */}
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-border bg-background px-8 py-8 lg:flex">
-        <a href="/#home" className="mb-10 block">
+        <a href="/#home" className="mb-10 flex items-center gap-3">
           <Image
             src="/logo.png"
             alt="CJ Healing Arts logo"
             width={72}
             height={72}
-            className="h-16 w-16 object-contain"
+            className="h-16 w-16 shrink-0 object-contain"
           />
+          <span className="text-sm font-medium leading-snug tracking-tight">
+            CJ Healing Arts
+          </span>
         </a>
 
         <nav aria-label="Primary" className="border-t border-border pt-6">
