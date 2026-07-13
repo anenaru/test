@@ -3,25 +3,25 @@ import Image from 'next/image'
 const services = [
   {
     title: 'Pre-Employment & Coaching',
-    image: '/service-coaching.png',
+    image: '/service-coaching.jpg',
     description:
       'Build confidence and foundational workplace skills. We offer tailored career exploration, job readiness preparation, and pre-employment coaching to get you ready for the workforce.',
   },
   {
     title: 'Employment & Placement',
-    image: '/service-placement.png',
+    image: '/service-placement.jpg',
     description:
       'Find meaningful work that matches your strengths. We assist individuals in identifying, acquiring, and maintaining employment that aligns with their personal goals, interests, and skills.',
   },
   {
     title: 'Creative Self-Expression',
-    image: '/service-culinary.png',
+    image: '/service-culinary.jpg',
     description:
       'Discover strength and self-expression. Founded by Chef Michelle Jones, we help individuals find alternative paths to healing and fulfillment through a variety of artistic pursuits, including the culinary arts.',
   },
   {
     title: 'Advocacy & Entrepreneurship',
-    image: '/service-advocacy.png',
+    image: '/service-advocacy.jpg',
     description:
       'Empowering both hidden and visible disabilities. We teach individuals to advocate for meaningful accommodations in the workplace while fostering entrepreneurial goals for long-term independence.',
   },
