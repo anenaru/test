@@ -7,7 +7,7 @@ import { ContactForm } from '@/components/contact-form'
 export const metadata: Metadata = {
   title: 'Contact Us | CJ Healing Arts',
   description:
-    'Get in touch with CJ Healing Arts. We'd love to hear from you — whether you have a question about our services or want to learn more about how we can help.',
+    "Get in touch with CJ Healing Arts. We'd love to hear from you — whether you have a question about our services or want to learn more about how we can help.",
 }
 
 export default function ContactUsPage() {
