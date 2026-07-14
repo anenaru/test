@@ -15,36 +15,40 @@ type Member = {
   image: string
 }
 
-// Ordered by filename numbering: portrait1, 2, 3, 4, 5, 7
 const members: Member[] = [
   {
-    name: 'Chef Michelle Jones',
-    role: 'Founder & Prevocational Rehabilitation Consultant',
+    name: 'Michelle Jones',
+    role: 'Founder and CEO',
     image: '/team/portrait1.png',
   },
   {
-    name: 'Teddy',
-    role: 'Emotional Support Champion',
+    name: 'Blue',
+    role: 'Support Champion',
     image: '/team/portrait2.png',
   },
   {
-    name: 'Board Member',
-    role: 'President',
+    name: 'Dr. Emanuel Hunter',
+    role: 'President, Employment Specialist',
     image: '/team/portrait3.png',
   },
   {
-    name: 'Board Member',
-    role: 'Director',
+    name: 'Brandon Swaby',
+    role: 'Board Member',
     image: '/team/portrait4.png',
   },
   {
-    name: 'Board Member',
-    role: 'Director',
+    name: 'Sylvia Troyer',
+    role: 'Board Secretary',
     image: '/team/portrait5.png',
   },
   {
-    name: 'Board Member',
-    role: 'Director',
+    name: 'Judge Phoebee Francois',
+    role: 'Board Member',
+    image: '/team/portait6.jpg',
+  },
+  {
+    name: 'Edinisa Lopez',
+    role: 'Board Member',
     image: '/team/portrait7.png',
   },
 ]

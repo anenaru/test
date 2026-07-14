@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Space_Grotesk } from 'next/font/google'
 import './globals.css'
@@ -49,7 +48,6 @@ export default function RootLayout({
     <html lang="en" className={`bg-background ${spaceGrotesk.variable}`}>
       <body className="font-sans antialiased">
         {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
   )
