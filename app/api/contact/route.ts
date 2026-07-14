@@ -21,44 +21,32 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const apiKey = process.env.RESEND_API_KEY
+    const accessKey = process.env.WEB3FORMS_ACCESS_KEY
 
-    if (!apiKey) {
-      // Fallback: log and return success in dev so the form still works without a key
-      console.warn('[contact] RESEND_API_KEY not set — email not sent.')
+    if (!accessKey) {
+      console.warn('[contact] WEB3FORMS_ACCESS_KEY not set — email not sent.')
       console.info('[contact] Would have sent:', { name, email, phone, subject, message })
       return NextResponse.json({ success: true })
     }
 
-    const htmlBody = `
-      <p><strong>Name:</strong> ${name}</p>
-      ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
-      <p><strong>Email:</strong> ${email}</p>
-      ${subject ? `<p><strong>Subject:</strong> ${subject}</p>` : ''}
-      <p><strong>Message:</strong></p>
-      <p style="white-space:pre-wrap">${message}</p>
-    `
-
-    const res = await fetch('https://api.resend.com/emails', {
+    const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        from: 'CJ Healing Arts Contact Form <onboarding@resend.dev>',
-        to: ['cjhealingart1999@gmail.com'],
-        reply_to: email,
-        subject: subject
-          ? `[Contact Form] ${subject}`
-          : `[Contact Form] Message from ${name}`,
-        html: htmlBody,
+        access_key: accessKey,
+        name,
+        email,
+        phone: phone || '',
+        subject: subject ? `[Contact Form] ${subject}` : `[Contact Form] Message from ${name}`,
+        message,
+        replyto: email,
       }),
     })
 
-    if (!res.ok) {
-      const detail = await res.text()
-      console.error('[contact] Resend error:', res.status, detail)
+    const data = await res.json()
+
+    if (!res.ok || !data.success) {
+      console.error('[contact] Web3Forms error:', data)
       return NextResponse.json(
         { error: 'Failed to send message. Please try again later.' },
         { status: 500 }
